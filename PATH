@@ -1,18 +1,16 @@
-# Prompt Routing Configuration v1
-#
-# This file defines how the bot resolves prompts based on context.
-# Patterns are matched top-to-bottom; first match wins.
-#
-# Available variables:
-# - {category}      : discussion, meeting, moderation
-# - {channel}       : channel name (e.g., general, announcements)
-# - {summary_type}  : brief, detailed, comprehensive
-
-# Channel-specific overrides (highest priority)
-prompts/{category}/{channel}.md
-
-# Category-specific prompts
-prompts/{category}/default.md
-
-# Global fallback
-prompts/default.md
+  version: v1                                                                                            
+                                                                                                         
+  routes:                                                                                                
+    # Channel-specific prompts (highest priority)                                                        
+    channel_specific: "prompts/{category}/{channel}.md"                                                  
+                                                                                                         
+    # Category-specific prompts                                                                          
+    category_default: "prompts/{category}/default.md"                                                    
+                                                                                                         
+    # Global fallback                                                                                    
+    global_default: "prompts/default.md"                                                                 
+                                                                                                         
+  fallback_chain:                                                                                        
+    - channel_specific                                                                                   
+    - category_default                                                                                   
+    - global_default  
